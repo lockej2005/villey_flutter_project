@@ -115,14 +115,13 @@ void _showErrorDialog(String message) {
 void _finishAndSubmit() async {
   if (!_isRunning && _userName.isNotEmpty && _earnings > 0.0) {
     final int hourlyRateInt = (_hourlyRate).toInt();
-    final int totalEarningsInt = (_earnings).toInt();
 
     final response = await Supabase.instance.client
       .from('timesheets')
       .insert({
         'name': _userName,
         'hourly_rate': hourlyRateInt,
-        'total_earnt': totalEarningsInt,
+        'total_earnt': _earnings,
         'elapsedTime': formatElapsedTime(_secondsPassed),
       })
       .execute();
